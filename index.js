@@ -11,11 +11,23 @@ function isValidURL(string) {
   return (res !== null)
 };
 
+function isValidHttpUrl(string) {
+  let url;
+
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+}
+
 client.on('message', msg => {
   const CHANNEL_ID = process.env.CHANNEL_ID;
 
   if (msg.channel.id === CHANNEL_ID) {
-    if (!isValidURL(msg.content) && !msg.author.bot) {
+    if (!isValidHttpUrl(msg.content) && !msg.author.bot) {
       msg.delete()
         .then(async () => {
           msg.channel.send('Mensaje borrado:\n**Solo se permiten links en este channel. No seas puto.**').then((msg) => {
