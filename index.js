@@ -21,7 +21,7 @@ client.on('message', msg => {
           msg.channel.send('Mensaje borrado:\n**Solo se permiten links en este channel. No seas puto.**').then((msg) => {
             setTimeout(() => {
               msg.delete();
-            }, 1000)
+            }, 2000)
           })
         })
         .catch((err) => console.log(err))
